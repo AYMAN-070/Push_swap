@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dispatch_operations.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayhammou <ayhammou@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bokim <bokim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 15:17:32 by ayhammou          #+#    #+#             */
-/*   Updated: 2025/12/18 11:52:56 by ayhammou         ###   ########.fr       */
+/*   Updated: 2025/12/16 18:00:05 by bokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_sorted(t_data *data)
+int static	is_sorted(t_data *data)
 {
 	t_stack	*first;
 
@@ -27,7 +27,6 @@ int	is_sorted(t_data *data)
 	}
 	return (1);
 }
-
 void	dispatch_op(t_data *data)
 {
 	if (data->strategy == 1)

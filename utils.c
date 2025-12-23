@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayhammou <ayhammou@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bokim <bokim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:40:14 by ayhammou          #+#    #+#             */
-/*   Updated: 2025/12/18 11:22:01 by ayhammou         ###   ########.fr       */
+/*   Updated: 2025/12/16 18:03:55 by bokim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	init_data(t_data *data)
 	ft_bzero(&data->operation, sizeof(t_operation));
 	data->strategy = 0;
 	data->bench_mode = false;
-	data->checker = false;
 	data->disorder = 0.00;
 }
 
@@ -66,11 +65,12 @@ void	add_stack(t_stack **numbers, t_stack *store)
 
 int	stack_size(t_stack *stack)
 {
-	int	count;
+	int count;
 
 	count = 0;
 	if (!stack)
 		return (0);
+
 	while (stack)
 	{
 		count++;
