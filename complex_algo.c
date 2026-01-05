@@ -14,12 +14,20 @@
 
 static int	get_max_bits(t_data *data)
 {
+	t_stack	*first;
 	int		max_index;
 	int		max_bits;
 
 	max_bits = 0;
+	max_index = 0;
 	index_value(data->a);
-	max_index = max_idx(data->a);
+	first = data->a;
+	while (first->next != NULL)
+	{
+		if (first->index > max_index)
+			max_index = first->index;
+		first = first->next;
+	}
 	while ((max_index >> max_bits) != 0)
 		max_bits++;
 	return (max_bits);
