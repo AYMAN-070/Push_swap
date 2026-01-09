@@ -1,0 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 14:30:49 by ayhammou          #+#    #+#             */
+/*   Updated: 2026/01/09 00:13:10 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap_bonus.h"
+
+static void	error_and_exit(t_data *data, char *line)
+{
+	write(2, "Error\n", 6);
+	if (line)
+		free(line);
+	free_stack(data);
+	exit(1);
+}
+
+static int	take_ops2(t_data *data, char *line)
+{
+	if (ft_strcmp(line, "ra\n") == 0)
+		ra(data);
+	else if (ft_strcmp(line, "rb\n") == 0)
+		rb(data);
+	else if (ft_strcmp(line, "rr\n") == 0)
+		rr(data);
+	else if (ft_strcmp(line, "rra\n") == 0)
+		rra(data);
+	else if (ft_strcmp(line, "rrb\n") == 0)
+		rrb(data);
+	else if (ft_strcmp(line, "rrr\n") == 0)
+		rrr(data);
+	else
+		return (0);
+	return (1);
+}
+
+void	checker(t_data *data)
+{
+	char	*line;
+
+	line = get_next_line(0);
+	while (line != NULL)
+	{
+		if (ft_strcmp(line, "sa\n") == 0)
+			sa(data);
+		else if (ft_strcmp(line, "sb\n") == 0)
+			sb(data);
+		else if (ft_strcmp(line, "ss\n") == 0)
+			ss(data);
+		else if (ft_strcmp(line, "pa\n") == 0)
+			pa(data);
+		else if (ft_strcmp(line, "pb\n") == 0)
+			pb(data);
+		else if (take_ops2(data, line) == 0)
+			error_and_exit(data, line);
+		free(line);
+		line = get_next_line(0);
+	}
+}

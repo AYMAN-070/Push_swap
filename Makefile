@@ -1,21 +1,70 @@
 NAME = push_swap
-CHECKER_NAME = checker
+BONUS_NAME = checker
+
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+INC = -Iincls -I$(LIBFT_DIR)
+HDRS = incls/push_swap.h \
+		incls/push_swap_bonus.h
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-PRINTF_PATH = ./libftprintf
-PRINTF_INC  = -I $(PRINTF_PATH)
-SOURCES = utils.c simple_algo.c parsing_arg.c operations3.c operations2.c operations.c complex_algo.c medium_algo.c main.c get_next_line.c get_next_line_utils.c exec_op3.c exec_op2.c exec_op.c dispatch_operations.c disorder.c checker.c bench_mode.c libftprintf/printf_utils2.c libftprintf/printf_utils.c libftprintf/ft_strcmp.c libftprintf/ft_printf.c libftprintf/ft_bzero.c libftprintf/ft_strstr.c
-OBJECTS = $(SOURCES:.c=.o)
+CFLAGS = -Wall -Wextra -Werror $(INC)
+
+SRCS_DIR = srcs/
+SRCS_FILES = bench_mode.c \
+			complex_algo.c \
+			disorder.c \
+			dispatch_operations.c \
+			exec_op.c \
+			exec_op2.c \
+			exec_op3.c \
+			free_stack.c \
+			main.c \
+			medium_algo.c \
+			operations.c \
+			operations2.c \
+			operations3.c \
+			parsing_arg.c \
+			simple_algo.c \
+			utils.c
+SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
+OBJS = $(SRCS:.c=.o)
+
+BONUS_DIR = bonus/
+BONUS_FILES = checker_bonus.c \
+			get_next_line_bonus.c \
+			get_next_line_utils_bonus.c \
+			main_bonus.c \
+			operations_bonus.c \
+			operations2_bonus.c \
+			operations3_bonus.c \
+			parsing_bonus.c \
+			utils_bonus.c
+BONUS_SRCS = $(addprefix $(BONUS_DIR), $(BONUS_FILES))
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+
 all: $(NAME)
-$(NAME) : $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
-%.o: %.c push_swap.h
-	$(CC) $(CFLAGS) $(PRINTF_INC) -c $< -o $@
-bonus: $(NAME)
-	cp $(NAME) $(CHECKER_NAME)
+
+$(NAME) : $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+
+bonus: $(LIBFT) $(BONUS_OBJS)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
+%.o: %.c $(HDRS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJECTS)
+	@make clean -C $(LIBFT_DIR)
+	rm -f $(OBJS) $(BONUS_OBJS)
+
 fclean: clean
-	rm -f $(NAME) $(CHECKER_NAME)
+	@make fclean -C $(LIBFT_DIR)
+	rm -f $(NAME) $(BONUS_NAME)
+
 re : fclean all
-PHONY: all clean fclean re bonus
+
+.PHONY: all bonus clean fclean re
